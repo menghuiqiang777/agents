@@ -1,17 +1,17 @@
-module agents
+module github.com/menghuiqiang777/agents
 
 go 1.24.2
 
 require (
 	github.com/cloudwego/eino v0.3.36
-	github.com/cloudwego/eino-ext/components/model/ark v0.1.8
+	github.com/cloudwego/eino-ext/components/model/ark v0.1.9
+	github.com/cloudwego/eino-ext/components/model/qwen v0.0.0-20250522060253-ddb617598b09
 )
 
 require (
 	github.com/bytedance/sonic v1.13.2 // indirect
 	github.com/bytedance/sonic/loader v0.2.4 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
-	github.com/cloudwego/eino-ext/components/model/qwen v0.0.0-20250522023626-7bc321639a70 // indirect
 	github.com/cloudwego/eino-ext/libs/acl/openai v0.0.0-20250519084852-38fafa73d9ea // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/getkin/kin-openapi v0.118.0 // indirect
@@ -37,7 +37,7 @@ require (
 	github.com/slongfield/pyfmt v0.0.0-20220222012616-ea85ff4c361f // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/volcengine/volc-sdk-golang v1.0.23 // indirect
-	github.com/volcengine/volcengine-go-sdk v1.1.4 // indirect
+	github.com/volcengine/volcengine-go-sdk v1.1.8 // indirect
 	github.com/yargevad/filepathx v1.0.0 // indirect
 	golang.org/x/arch v0.15.0 // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect

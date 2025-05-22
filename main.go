@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main
+package agents
 
 import (
 	"context"
