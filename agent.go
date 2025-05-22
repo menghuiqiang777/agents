@@ -21,6 +21,20 @@ type Agent struct {
 	Provider     string
 }
 
+// NewAgent 是一个工厂函数，用于创建 Agent 实例并设置默认的 Provider
+func NewAgent(name, instructions, modelName string, provider ...string) *Agent {
+	defaultProvider := "ARK"
+	if len(provider) > 0 {
+		defaultProvider = provider[0]
+	}
+	return &Agent{
+		Name:         name,
+		Instructions: instructions,
+		ModelName:    modelName,
+		Provider:     defaultProvider,
+	}
+}
+
 // NewModel 根据 provider 创建不同的模型
 func (a *Agent) NewModel(ctx context.Context) (interface{}, error) {
 	switch a.Provider {
