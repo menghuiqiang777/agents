@@ -1,4 +1,4 @@
-package agents
+package agents // 修改包名，与模块名对应
 
 import (
 	"context"
@@ -15,35 +15,35 @@ import (
 
 // Agent 结构体定义，增加 modelName 和 provider 字段
 type Agent struct {
-	name         string
-	instructions string
-	modelName    string
-	provider     string
+	Name         string
+	Instructions string
+	ModelName    string
+	Provider     string
 }
 
-// newModel 根据 provider 创建不同的模型
-func (a *Agent) newModel(ctx context.Context) (interface{}, error) {
-	switch a.provider {
+// NewModel 根据 provider 创建不同的模型
+func (a *Agent) NewModel(ctx context.Context) (interface{}, error) {
+	switch a.Provider {
 	case "ARK":
 		return ark.NewChatModel(ctx, &ark.ChatModelConfig{
 			APIKey: os.Getenv("ARK_API_KEY"),
-			Model:  a.modelName,
+			Model:  a.ModelName,
 		})
 	case "QWEN":
 		return qwen.NewChatModel(ctx, &qwen.ChatModelConfig{
 			// 假设 QWEN 模型需要类似的配置，具体根据实际情况调整
 			BaseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1",
 			APIKey:  os.Getenv("QWEN_API_KEY"),
-			Model:   a.modelName,
+			Model:   a.ModelName,
 		})
 	default:
-		return nil, fmt.Errorf("unsupported provider: %s", a.provider)
+		return nil, fmt.Errorf("unsupported provider: %s", a.Provider)
 	}
 }
 
-// run 方法，调用 generate.go 中的 generate 方法
-func (a *Agent) run(ctx context.Context, in []*schema.Message) *schema.Message {
-	model, err := a.newModel(ctx)
+// Run 方法，调用 generate.go 中的 generate 方法
+func (a *Agent) Run(ctx context.Context, in []*schema.Message) *schema.Message {
+	model, err := a.NewModel(ctx)
 	if err != nil {
 		log.Fatalf("create chat model failed, err=%v", err)
 	}
@@ -64,9 +64,9 @@ func (a *Agent) run(ctx context.Context, in []*schema.Message) *schema.Message {
 	return result
 }
 
-// run_stream 方法，调用 stream.go 中的 reportStream 方法
-func (a *Agent) run_stream(ctx context.Context, in []*schema.Message) {
-	model, err := a.newModel(ctx)
+// RunStream 方法，调用 stream.go 中的 reportStream 方法
+func (a *Agent) RunStream(ctx context.Context, in []*schema.Message) {
+	model, err := a.NewModel(ctx)
 	if err != nil {
 		log.Fatalf("create chat model failed, err=%v", err)
 	}
@@ -105,11 +105,12 @@ func reportStream(sr *schema.StreamReader[*schema.Message]) {
 	}
 }
 
-func createMessages(agent *Agent, input string) []*schema.Message {
+// CreateMessages 生成消息列表
+func CreateMessages(agent *Agent, input string) []*schema.Message {
 	// 创建模板，使用 FString 格式
 	template := prompt.FromMessages(schema.FString,
 		// 系统消息模板，使用 agent 的 instructions 字段
-		schema.SystemMessage(agent.instructions),
+		schema.SystemMessage(agent.Instructions),
 		// 用户消息模板
 		schema.UserMessage("{input}"),
 	)
@@ -123,5 +124,3 @@ func createMessages(agent *Agent, input string) []*schema.Message {
 	}
 	return messages
 }
-
-// 原 createTemplate 和 createMessagesFromTemplate 函数可删除

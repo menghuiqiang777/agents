@@ -29,26 +29,26 @@ func main() {
 
 	// 创建 Agent 实例
 	agent := &Agent{
-		name:         "ArkAgent",
-		instructions: "Provide helpful responses",
-		modelName:    "doubao-1-5-pro-32k-250115",
-		provider:     "ARK",
+		Name:         "ArkAgent",
+		Instructions: "Provide helpful responses",
+		ModelName:    "doubao-1-5-pro-32k-250115",
+		Provider:     "ARK",
 	}
 
 	agent_qwen := &Agent{
-		name:         "ArkAgent",
-		instructions: "Provide helpful responses",
-		modelName:    "qwen-plus-2025-04-28",
-		provider:     "QWEN",
+		Name:         "ArkAgent",
+		Instructions: "Provide helpful responses",
+		ModelName:    "qwen-plus-2025-04-28",
+		Provider:     "QWEN",
 	}
 
 	log.Printf("Created agent: %+v\n", agent)
 	input := "你是谁？"
-	messages := createMessages(agent, input)
+	messages := CreateMessages(agent, input)
 	log.Printf("messages: %+v\n\n", messages)
 	//fmt.Println("messages: ", messages)
 
-	agent.run_stream(ctx, messages)
+	agent.RunStream(ctx, messages)
 
-	agent_qwen.run_stream(ctx, messages)
+	agent_qwen.RunStream(ctx, messages)
 }
